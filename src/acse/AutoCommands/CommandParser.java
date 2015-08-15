@@ -1,17 +1,18 @@
 package acse.AutoCommands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.command.ConsoleCommandSender;
 
 public class CommandParser {
     public static void run(String str, String perm) {
-        if (str.startsWith('/')) {
+        if (str.startsWith("/")) {
             ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
             Server server = Bukkit.getServer();
             String cmd = str.substring(1);
 
-            server.dispatchCommand(console, cmd);
+            server.dispatchCommand(console, ChatColor.translateAlternateColorCodes('&', cmd));
         } else {
             Utils.say(str, perm);
         }
