@@ -1,0 +1,7 @@
+name: AutoCommandsPlus
+main: acse.AutoCommands.AutoCommands
+author: MikroAcse
+version: 1.0.0
+commands:
+    autocommands:
+        aliases: [ac, autocommandsplus, acp]
