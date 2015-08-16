@@ -11,7 +11,7 @@ Powerful. Free. Opensource.
 Enjoy!
 
 Let's look through the config (plugin is beta, so 80% of this don't work for now):
-'''yaml
+```yaml
 # /ac aliases: /autocommands, /acp, /autocommandsplus
 #
 # COMMANDS:
@@ -113,4 +113,4 @@ locale:
   enabledFalse: 'disabled'
   help: '&a&l[AutoCommandsPlus]&r &fAvailable commands: &b/ac reload&f, &b/ac enabled <list> <true/false>&f, &b/tellp'
   version: "&a&l[AutoCommandsPlus]&r &fVersion of the plugin: &b&l"
-'''
+```
