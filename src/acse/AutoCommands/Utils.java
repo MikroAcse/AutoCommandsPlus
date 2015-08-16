@@ -7,8 +7,10 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.Collection;
+import java.util.Random;
 
 public class Utils {
+    public static Player randomPlayer;
 
     public static void say(String msg, String perm) {
         Collection<? extends Player> playersOnline = Bukkit.getServer().getOnlinePlayers();
@@ -73,9 +75,23 @@ public class Utils {
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
     }
 
+    public static Player reselectRandomPlayer() {
+        Collection<? extends Player> playersOnline = Bukkit.getServer().getOnlinePlayers();
+        Random random = new Random();
+        int size = playersOnline.size();
+        if(size < 1) {
+            return null;
+        }
+        int i = random.nextInt(playersOnline.size());
+        randomPlayer = (Player) playersOnline.toArray()[i];
+        return randomPlayer;
+    }
+
     public static String replacePlaceholders(String str, Player player) {
-        str = str.replaceAll("%playername%", player.getName());
-        str = str.replaceAll("%player%", player.getDisplayName());
+        str = str.replaceAll("%player%", player.getName());
+        str = str.replaceAll("%playername%", player.getDisplayName());
+        str = str.replaceAll("%randomplayer%", randomPlayer.getName());
+        str = str.replaceAll("%randomplayername", randomPlayer.getDisplayName());
         str = str.replaceAll("%online%", String.valueOf(Bukkit.getServer().getOnlinePlayers().size()));
         str = str.replaceAll("%maxplayers%", String.valueOf(Bukkit.getServer().getMaxPlayers()));
         if(AutoCommands.economy != null) {

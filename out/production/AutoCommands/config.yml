@@ -1,41 +1,60 @@
 lists:
-  simple:
-    interval: 300
+  test1:
+    interval: 20
+    minimumPlayers: 0
     permission: none
     type: default
     commands:
-    - '/say Hi everyone!'
-    - '/lagg gc'
-    - '/lagg unloadchunks'
-    - '/tm bc Buy our donate!'
-
+    - '[AutoCommandsPlus] Hi everyone!'
+    - '@>/title %player% subtitle It'' a subtitle! Woohoo!>;@>/title %player% title Welcome to our server!'
+    # notice, second time you don't need to use $ (%randomplayer% is permanent variable)
+    - '$!>/eco give %randomplayer% 1000;>!>%randomplayer%, you won a lottery!>;@>%randomplayer% won a lottery!'
+    - '$>Have a nice day, %randomplayer% (everyone will see that)'
+    - '!>Only latest randomplayer will see that. Hi, %randomplayer%'
+  test2:
+    interval: 5
+    minimumPlayers: 2
+    permission: receive.messages
+    type: random
+    commands:
+    - '1, %player%'
+    - '2, %online%'
+    - '3, %balance%'
+    - '$!>4, %randomplayer%'
   # will be available soon
-  #_first:
+  _first:
     # 300 seconds = 5 minutes
-    #interval: 300
-    # default or random are supported (soon non-repeated random)
-    #type: default
+    interval: 300
+    # only default is supported now
+    type: default
+    # if bigger than 0, commands will be ran only if there are minimum players on the server
+    minimumPlayers: 0
     # player needs this permission to run the commands (starting with '@') with the player
-    #permission: none
-    #commands:
-    # you can separate commands by >;
-    # you can timeout commands by separating >;2s;> where 2s = 2 seconds
-    # in this example first command ran, then wait for 2 seconds and then run second command
-    # '@' means that command will be ran with every player (you can use %player% placeholder)
-    # '$' means the same as '@', but it takes only one random player
-    # '#' means that command will be ran 'sudo' player
-    # random player will be the same in the one line (but you can change it, write ';rand;' that will reselect random player)
-    # '-' excludes random player from '@'
-    #- '@/tell %player% Hi!>;2s>;@/tell %player% 2 seconds passed'
-    #- '/tm msg Donate to us! /donate'
-    #- '$#/pay admin 1000>;$/tell %randplayer% You won the lottery!>;-@/tell %player% %randplayer% won the lottery!'
-    #- '$/tell %randplayer% Wow! You are the first!>;rand>;$/tell %randplayer% Wow! You are the second!'
-  #_second:
-  #  interval: 60
-  #  permission: autocommands.admin
-  #  type: random
-  #  commands:
-  #  - '@/tell %player% Hello, admin!'
+    permission: none
+    commands:
+     # if you want to just send message to all players, put it as a command (without / or something)
+     # you can run multiple commands using >;
+     # you can delay commands by using >;%2s;> where %2s means 2 seconds
+     # in this example first command ran, then wait for 2 seconds and then run second command
+     # '@' runs command to every player (you can use %player% placeholder)
+     # '&' reselects random player (placeholder is %randomplayer%)
+     # '!' runs command or shows the message only to random player
+     # you can also use %randomplayer% after the command with $-prefix (every command with $-prefix will reselect random player)
+     # '#' runs command as player (use with '@' or '!')
+     # '-' excludes random player from '@'
+     - '@>/tell %player% Hi!;2s>;@>/tell %player% 2 seconds passed'
+     - '/tm msg Donate to us! /donate'
+     - '$#>/pay admin 1000>;$/tell %randplayer% You won the lottery!>;-@>/tell %player% %randplayer% won the lottery!'
+     - '$>/tell %randplayer% Wow! You are the first!>;$>/tell %randplayer% Wow! You are the second!'
+  _second:
+    interval: 60
+    permission: autocommands.admin
+    minimumPlayers: 0
+    type: random
+    commands:
+    - '@>/tell %player% Hello, admin!'
 locale:
   noPermission: 'You don''t have enough permissions for this!'
   wrongTellp: 'Usage: /tellp <player> <message>'
+  pluginReloaded: 'Plugin has been successfully reloaded!'
+debug: false

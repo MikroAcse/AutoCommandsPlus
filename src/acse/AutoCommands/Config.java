@@ -29,6 +29,14 @@ public class Config {
         return getList(list).getInt("interval");
     }
 
+    public static String getType(String list) {
+        return getList(list).getString("type");
+    }
+
+    public static int getMinimumPlayers(String list) {
+        return getList(list).getInt("minimumPlayers");
+    }
+
     public static String getPermission(String list) {
         return getList(list).getString("permission");
     }

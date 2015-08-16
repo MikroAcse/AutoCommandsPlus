@@ -33,6 +33,8 @@ public class AutoCommands extends JavaPlugin {
         RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
         if (economyProvider != null) {
             economy = economyProvider.getProvider();
+        } else {
+            economy = null;
         }
     }
 
@@ -54,6 +56,12 @@ public class AutoCommands extends JavaPlugin {
         Set<String> lists = listsSections.getKeys(false);
 
         for (String list : lists) {
+            if (list.startsWith("_")) {
+                continue;
+            }
+            if(Config.getListCommands(list).size() < 1) {
+                continue;
+            }
             int interval = Config.getInterval(list);
             Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new CommandTask(list), 20 * interval, 20 * interval);
         }
@@ -68,18 +76,8 @@ public class AutoCommands extends JavaPlugin {
             player = (Player) sender;
         }
 
-        if(args[0].equalsIgnoreCase("reload")) {
-            if(player != null && !player.hasPermission("autocommands.admin")) {
-                sender.sendMessage(Config.getLocale("noPermission"));
-                return true;
-            }
-            this.reloadConfig();
-            schedule();
-            sender.sendMessage("Plugin has been reloaded.");
-            return true;
-        }
         if(cmd.equalsIgnoreCase("tellp")) {
-            if(player != null && !player.isOp()) {
+            if(player != null && !player.hasPermission("autocommands.admin") && !player.isOp()) {
                 sender.sendMessage(Config.getLocale("noPermission"));
                 return true;
             }
@@ -88,7 +86,11 @@ public class AutoCommands extends JavaPlugin {
                 return true;
             }
             Player playerArg = Bukkit.getServer().getPlayerExact(args[0]);
-            String message = args[1];
+            String message = "";
+            int length = args.length;
+            for(int i = 1; i < length; i++) {
+                message = message + args[i];
+            }
 
             if(playerArg == null) {
                 sender.sendMessage(Config.getLocale("wrongTellp"));
@@ -97,6 +99,15 @@ public class AutoCommands extends JavaPlugin {
 
             message = Utils.replacePlaceholders(message, playerArg);
             playerArg.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+        } else if(args[0].equalsIgnoreCase("reload")) {
+            if(player != null && !player.hasPermission("autocommands.admin")) {
+                sender.sendMessage(Config.getLocale("noPermission"));
+                return true;
+            }
+            this.reloadConfig();
+            schedule();
+            sender.sendMessage(Config.getLocale("pluginReloaded"));
+            return true;
         }
         return false;
     }
