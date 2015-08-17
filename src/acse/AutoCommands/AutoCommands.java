@@ -26,9 +26,6 @@ public class AutoCommands extends JavaPlugin {
     public void onEnable(){
         this.saveDefaultConfig();
         plugin = this;
-        schedule();
-
-        getLogger().log(Level.INFO, "Plugins has been enabled.");
 
         RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
         if (economyProvider != null) {
@@ -36,6 +33,10 @@ public class AutoCommands extends JavaPlugin {
         } else {
             economy = null;
         }
+
+        schedule();
+
+        getLogger().log(Level.INFO, "Plugin has been enabled.");
     }
 
     @Override
@@ -51,14 +52,16 @@ public class AutoCommands extends JavaPlugin {
 
     public void schedule() {
         unschedule();
+        Utils.resetRandomPlayers();
+
+        if(!Config.isEnabled()) {
+            return;
+        }
 
         ConfigurationSection listsSections = Config.getLists();
         Set<String> lists = listsSections.getKeys(false);
 
         for (String list : lists) {
-            if (list.startsWith("_")) {
-                continue;
-            }
             if(Config.getListCommands(list).size() < 1) {
                 continue;
             }
@@ -86,10 +89,13 @@ public class AutoCommands extends JavaPlugin {
                 return true;
             }
             Player playerArg = Bukkit.getServer().getPlayerExact(args[0]);
-            String message = "";
-            int length = args.length;
-            for(int i = 1; i < length; i++) {
-                message = message + args[i];
+            String message = args[1];
+
+            if(args.length > 2) {
+                int length = args.length;
+                for(int i = 2; i < length; i++) {
+                    message = message + " " + args[i];
+                }
             }
 
             if(playerArg == null) {
@@ -97,16 +103,55 @@ public class AutoCommands extends JavaPlugin {
                 return true;
             }
 
-            message = Utils.replacePlaceholders(message, playerArg);
+            message = Utils.replacePlaceholders(message, playerArg, null);
             playerArg.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+        } else if (args.length < 1 || args[0].equalsIgnoreCase("help")) {
+            sender.sendMessage(Config.getLocale("help"));
+            return true;
         } else if(args[0].equalsIgnoreCase("reload")) {
-            if(player != null && !player.hasPermission("autocommands.admin")) {
+            if(player != null && !player.hasPermission("autocommands.admin") && !player.isOp()) {
                 sender.sendMessage(Config.getLocale("noPermission"));
                 return true;
             }
             this.reloadConfig();
             schedule();
             sender.sendMessage(Config.getLocale("pluginReloaded"));
+            return true;
+        } else if(args[0].equalsIgnoreCase("set")) {
+            if(player != null && !player.hasPermission("autocommands.admin") && !player.isOp()) {
+                sender.sendMessage(Config.getLocale("noPermission"));
+                return true;
+            }
+            if (args.length != 3) {
+                sender.sendMessage(Config.getLocale("wrongEnabled"));
+                return true;
+            }
+
+            ConfigurationSection list = Config.getList(args[1]);
+            boolean value = args[2].equalsIgnoreCase("enabled");
+
+            if(list == null) {
+                sender.sendMessage(Config.getLocale("wrongEnabled"));
+            }
+
+            Config.setEnabled(args[1], value);
+            String msg = Config.getLocale("listEnabledChanged");
+            msg = msg.replaceAll("%list%", args[1]);
+            if(value) {
+                msg = msg.replaceAll("%enabled%", Config.getLocale("enabledTrue"));
+            } else {
+                msg = msg.replaceAll("%enabled%", Config.getLocale("enabledFalse"));
+            }
+            sender.sendMessage(msg);
+            return true;
+        } else if(args[0].equalsIgnoreCase("version")) {
+            if(player != null && !player.hasPermission("autocommands.admin") && !player.isOp()) {
+                sender.sendMessage(Config.getLocale("noPermission"));
+                return true;
+            }
+
+            sender.sendMessage(Config.getLocale("version") + this.getDescription().getVersion());
+
             return true;
         }
         return false;
