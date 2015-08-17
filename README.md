@@ -10,7 +10,7 @@ Just put your message like command:
 ```yaml
 commands: 
 - "[YourPrefix] Hello everyone!"
-- "It's message"
+- "It's a message"
 - "$>Random player is %randomplayer%"
 - "Hey, %player%, do you know that last random player was %randomplayer%"
 - "!>Only you, last random player %randomplayer%, hear this!"
