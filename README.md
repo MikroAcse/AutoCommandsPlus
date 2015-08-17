@@ -21,11 +21,8 @@ commands:
 Powerful. Free. Opensource.
 Enjoy!
 
-<<<<<<< HEAD
-Let's look through the config (I tested everything, but plugin is beta, so use tickets if you encounter a bug):
-=======
-Let's look through the config (plugin is beta, so 80% of this don't work for now):
->>>>>>> da92b5a64dc71de0e0234d4015ab40f0cfc63d06
+#Let's look through the config with examples!
+I tested everything, but plugin is beta, so use tickets if you encounter a bug:
 ```yaml
 # /ac aliases: /autocommands, /acp, /autocommandsplus
 #
@@ -59,7 +56,6 @@ lists:
     type: random
     minimumPlayers: 2
     permission: messages.receive
-<<<<<<< HEAD
     commands:
     - '&e&l[AutoCommandsPlus] &fDonate to us! &b&l/donate'
     - '&e&l[AutoCommandsPlus] &fEnjoy our minigames: &b&l/minigames'
@@ -88,7 +84,6 @@ lists:
     # if you want to just send message to all players, put it as a command (without / or something)
     # in message you can use such parameters as $ and !
     # you can run multiple commands using >;
-=======
     commands:
     - '&e&l[AutoCommandsPlus] &fDonate to us! &b&l/donate'
     - '&e&l[AutoCommandsPlus] &fEnjoy our minigames: &b&l/minigames'
@@ -118,7 +113,6 @@ lists:
     # in message you can use such parameters as $ and !
     # you can run multiple commands using >;
     # in this example first command ran, then wait for 2 seconds and then run second command
->>>>>>> da92b5a64dc71de0e0234d4015ab40f0cfc63d06
     # '@' runs command to every player (you can use %player% placeholder)
     # '$' reselects random player (placeholder is %randomplayer%)
     # '!' runs command or shows the message only to random player
