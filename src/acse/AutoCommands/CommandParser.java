@@ -65,6 +65,7 @@ public class CommandParser {
             String cmd = str.substring(1);
 
             if(sAllPlayers) {
+                Utils.debug("Using all players! " + cmd);
                 Collection<? extends Player> playersOnline = server.getOnlinePlayers();
 
                 for (Player player : playersOnline) {
@@ -72,11 +73,12 @@ public class CommandParser {
                         continue;
                     }
 
-                    cmd = Utils.replacePlaceholders(cmd, player, list);
+                    String pcmd = Utils.replacePlaceholders(cmd, player, list);
+                    Utils.debug("Ran to " + player.getName() + ": " + pcmd);
                     if (sSudoPlayer) {
-                        server.dispatchCommand(player, ChatColor.translateAlternateColorCodes('&', cmd));
+                        server.dispatchCommand(player, ChatColor.translateAlternateColorCodes('&', pcmd));
                     } else {
-                        server.dispatchCommand(console, ChatColor.translateAlternateColorCodes('&', cmd));
+                        server.dispatchCommand(console, ChatColor.translateAlternateColorCodes('&', pcmd));
                     }
                 }
             } else if (sRandomPlayer) {

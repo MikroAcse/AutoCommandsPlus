@@ -2,7 +2,7 @@ name: AutoCommandsPlus
 main: acse.AutoCommands.AutoCommands
 author: MikroAcse
 softdepend: [Vault]
-version: 1.1.8
+version: 1.1.9
 commands:
     autocommands:
         aliases: [ac, autocommandsplus, acp]
