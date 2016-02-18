@@ -23,6 +23,8 @@ public class Config {
         return AutoCommands.plugin.getConfig().getBoolean("enabled");
     }
 
+    public static boolean usePlaceholderAPI() { return AutoCommands.plugin.getConfig().getBoolean("usePlaceholderAPI"); }
+
     public static ConfigurationSection getLists() {
         return getSection("lists");
     }

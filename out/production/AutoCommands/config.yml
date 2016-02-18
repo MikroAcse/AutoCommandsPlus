@@ -1,27 +1,29 @@
-# /ac aliases: /autocommands, /acp, /autocommandsplus
+# /acp aliases: /autocommands, /autocommandsplus
 #
 # COMMANDS:
-# /ac reload
-# /ac set <listname> <enabled/disabled>
+# /acp reload
+# /acp set <listname> <enabled/disabled>
 # /tellp (alias is /raw) (it's cool! Especially for command blocks)
 #
 # IMPORTANT:
 # Random players are different for every list!
-# Command '/ac set ...' removes all comments
+# Command '/acp set ...' removes all comments
 #   and shuffles the variables in this file :(
 # I recommend you to enable/disable lists here yourself
-#   and use /ac reload. 
+#   and use /acp reload.
 #
-# PLACEHOLDERS:
+# PLACEHOLDERS (don't work if PlaceholderAPI enabled):
 # %player%, %playername% are the same, but %playername% shows player's displayname (with prefixes)
 # Use %player% placeholder in commands, and %playername% in messages
-# %randomplayer%, %randomplayername% (see above)
 # %online%, %maxplayers%
 # %balance% (requires Vault)
+# %randomplayer%, %randomplayername% (see above, WORKS EVEN IF PLACEHOLDERAPI IS ENABLED)
 
 # you can enable or disable whole plugin by changing this and running /ac reload
 enabled: true
-# use it if you want to see a lot of strange messages in your console
+# use PlaceholderAPI only (disables all placeholders above but random player placeholder)
+usePlaceholderAPI: false
+# use it if you want to see a lots of strange messages in your console
 debug: false
 lists:
   simple:
@@ -96,5 +98,5 @@ locale:
   listEnabledChanged: '&a&l[AutoCommandsPlus]&r &fList &b%list%&f is now &b%enabled%&f.'
   enabledTrue: 'enabled'
   enabledFalse: 'disabled'
-  help: '&a&l[AutoCommandsPlus]&r &fAvailable commands: &b/ac reload&f, &b/ac enabled <list> <true/false>&f, &b/tellp'
+  help: '&a&l[AutoCommandsPlus]&r &fAvailable commands: &b/acp reload&f, &b/acp enabled <list> <true/false>&f, &b/tellp'
   version: "&a&l[AutoCommandsPlus]&r &fVersion of the plugin: &b&l"

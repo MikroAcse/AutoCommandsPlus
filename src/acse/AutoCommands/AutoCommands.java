@@ -1,5 +1,6 @@
 package acse.AutoCommands;
 
+import acse.AutoCommands.hooks.PlaceholderAPIHook;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -26,6 +27,8 @@ public class AutoCommands extends JavaPlugin {
     public void onEnable(){
         this.saveDefaultConfig();
         plugin = this;
+
+        new PlaceholderAPIHook();
 
         RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
         if (economyProvider != null) {

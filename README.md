@@ -1,8 +1,10 @@
-# AutoCommandsPlus 1.1.8
+# AutoCommandsPlus 1.2.0
 Powerful bukkit/spigot scheduler.
 It can run commands in interval.
 It can run commands to all players on the server, or random player, or everyone excluding random player.
 It can run commands as player, as randomplayer.
+
+Also it supports PlaceholderAPI! Just enable it in the config.
 
 Even it's not just a commands scheduler.
 You can use it as message scheduler! (it's fully supported)
@@ -24,30 +26,32 @@ Enjoy!
 #Let's look through the config with examples!
 I tested everything, but plugin is beta, so use tickets if you encounter a bug:
 ```yaml
-# /ac aliases: /autocommands, /acp, /autocommandsplus
+# /acp aliases: /autocommands, /autocommandsplus
 #
 # COMMANDS:
-# /ac reload
-# /ac set <listname> <enabled/disabled>
+# /acp reload
+# /acp set <listname> <enabled/disabled>
 # /tellp (alias is /raw) (it's cool! Especially for command blocks)
 #
 # IMPORTANT:
 # Random players are different for every list!
-# Command '/ac set ...' removes all comments
+# Command '/acp set ...' removes all comments
 #   and shuffles the variables in this file :(
 # I recommend you to enable/disable lists here yourself
-#   and use /ac reload. 
+#   and use /acp reload.
 #
-# PLACEHOLDERS:
+# PLACEHOLDERS (don't work if PlaceholderAPI enabled):
 # %player%, %playername% are the same, but %playername% shows player's displayname (with prefixes)
 # Use %player% placeholder in commands, and %playername% in messages
-# %randomplayer%, %randomplayername% (see above)
 # %online%, %maxplayers%
 # %balance% (requires Vault)
+# %randomplayer%, %randomplayername% (see above, WORKS EVEN IF PLACEHOLDERAPI IS ENABLED)
 
 # you can enable or disable whole plugin by changing this and running /ac reload
 enabled: true
-# use it if you want to see a lot of strange messages in your console
+# use PlaceholderAPI only (disables all placeholders above but random player placeholder)
+usePlaceholderAPI: false
+# use it if you want to see a lots of strange messages in your console
 debug: false
 lists:
   simple:
@@ -84,35 +88,6 @@ lists:
     # if you want to just send message to all players, put it as a command (without / or something)
     # in message you can use such parameters as $ and !
     # you can run multiple commands using >;
-    commands:
-    - '&e&l[AutoCommandsPlus] &fDonate to us! &b&l/donate'
-    - '&e&l[AutoCommandsPlus] &fEnjoy our minigames: &b&l/minigames'
-    - '&e&l[AutoCommandsPlus] &fWant to relax? Write &b&l/warp beach'
-  clearmemory:
-    enabled: false
-    interval: 300
-    type: default
-    minimumPlayers: 0
-    permission: none
-    commands:
-    - '&bAll items on ground will be removed in 5 minutes!'
-    - '/lagg clear>;&bAll items on ground have been removed.'
-    - '/lagg unloadchunks>;/lagg gc>;&bMemory has been cleaned!'
-  allparameters:
-    enabled: false
-    # 60 seconds = 1 minute, 3600 seconds = 1 hour, 86400 seconds = 1 day
-    interval: 60
-    # only default is supported now
-    type: default
-    # if bigger than 0, commands will be ran only if there are minimum players on the server
-    minimumPlayers: 0
-    # player will need this permission to 'hear'/run the commands or messages (starting with '@') with the player
-    permission: none
-    commands:
-    # if you want to just send message to all players, put it as a command (without / or something)
-    # in message you can use such parameters as $ and !
-    # you can run multiple commands using >;
-    # in this example first command ran, then wait for 2 seconds and then run second command
     # '@' runs command to every player (you can use %player% placeholder)
     # '$' reselects random player (placeholder is %randomplayer%)
     # '!' runs command or shows the message only to random player
@@ -151,6 +126,6 @@ locale:
   listEnabledChanged: '&a&l[AutoCommandsPlus]&r &fList &b%list%&f is now &b%enabled%&f.'
   enabledTrue: 'enabled'
   enabledFalse: 'disabled'
-  help: '&a&l[AutoCommandsPlus]&r &fAvailable commands: &b/ac reload&f, &b/ac enabled <list> <true/false>&f, &b/tellp'
+  help: '&a&l[AutoCommandsPlus]&r &fAvailable commands: &b/acp reload&f, &b/acp enabled <list> <true/false>&f, &b/tellp'
   version: "&a&l[AutoCommandsPlus]&r &fVersion of the plugin: &b&l"
 ```

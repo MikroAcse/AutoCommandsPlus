@@ -1,5 +1,7 @@
 package acse.AutoCommands;
 
+import acse.AutoCommands.hooks.PlaceholderAPIHook;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -72,13 +74,20 @@ public class Utils {
     }
 
     public static String replacePlaceholders(String str, Player player, String list) {
-        str = str.replaceAll("%player%", player.getName());
-        str = str.replaceAll("%playername%", player.getDisplayName());
         if (list != null) {
             Player randomPlayer = getRandomPlayer(list);
             str = str.replaceAll("%randomplayer%", randomPlayer.getName());
             str = str.replaceAll("%randomplayername%", randomPlayer.getDisplayName());
         }
+
+        if(Config.usePlaceholderAPI() && PlaceholderAPIHook.instance.isEnabled()) {
+            str = PlaceholderAPI.setPlaceholders(player, str);
+            return str;
+        }
+
+        str = str.replaceAll("%player%", player.getName());
+        str = str.replaceAll("%playername%", player.getDisplayName());
+
         str = str.replaceAll("%online%", String.valueOf(Bukkit.getServer().getOnlinePlayers().size()));
         str = str.replaceAll("%maxplayers%", String.valueOf(Bukkit.getServer().getMaxPlayers()));
         if(AutoCommands.economy != null) {
