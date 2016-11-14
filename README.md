@@ -1,14 +1,9 @@
 # AutoCommandsPlus 1.2.0
-Powerful bukkit/spigot scheduler.
-It can run commands in interval.
-It can run commands to all players on the server, or random player, or everyone excluding random player.
-It can run commands as player, as randomplayer.
+Powerful bukkit/spigot command/message scheduler.
 
-Also it supports PlaceholderAPI! Just enable it in the config.
+Supports PlaceholderAPI! Enable it in the config.
 
-Even it's not just a commands scheduler.
-You can use it as message scheduler! (it's fully supported)
-Just put your message like command:
+You can use it as message scheduler. Just put your message like command:
 ```yaml
 commands: 
 - "[YourPrefix] Hello everyone!"
@@ -19,9 +14,6 @@ commands:
 - "$!>Only you, new random player %randomplayer%, hear this!"
 - "&d&l[Prefix] &b&lIt's colored message. &f&lAnd\nthis is new line. More examples in "allparameters" list in the config file."
 ```
-
-Powerful. Free. Opensource.
-Enjoy!
 
 #Let's look through the config with examples!
 I tested everything, but plugin is beta, so use tickets if you encounter a bug:
